@@ -36,12 +36,12 @@ class UserController(
         log.debug("call getUser : name = '$name'")
         val user = userService.getUserByName(name)
         return UserVO(
-                id = user.id,
-                name = user.name!!,
-                nickname = user.nickname!!,
-                email = user.email!!,
-                grade = user.grade.toString(),
-                point = user.point
+            id = user.id,
+            name = user.name!!,
+            nickname = user.nickname!!,
+            email = user.email!!,
+            grade = user.grade.toString(),
+            point = user.point
         )
     }
 
@@ -50,12 +50,12 @@ class UserController(
         log.debug("call createUser : createUserDTO = '$createUserDTO'")
         val user = userService.createUser(createUserDTO)
         return UserVO(
-                id = user.id,
-                name = user.name!!,
-                nickname = user.nickname!!,
-                email = user.email!!,
-                grade = user.grade.toString(),
-                point = user.point
+            id = user.id,
+            name = user.name!!,
+            nickname = user.nickname!!,
+            email = user.email!!,
+            grade = user.grade.toString(),
+            point = user.point
         )
     }
 

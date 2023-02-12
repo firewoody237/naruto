@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan
 
 @SpringBootApplication(scanBasePackages = ["com.example.naruto"])
 @ServletComponentScan(basePackages = ["com.example.naruto"])
-class ApiApplication{
+class ApiApplication {
 
 }
 

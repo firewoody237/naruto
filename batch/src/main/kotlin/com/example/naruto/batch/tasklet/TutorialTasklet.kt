@@ -1,9 +1,17 @@
 package com.example.naruto.batch.tasklet
 
+import com.example.naruto.integrated.db.repository.UserRepository
+import org.apache.logging.log4j.LogManager
+import org.springframework.batch.core.StepContribution
+import org.springframework.batch.core.scope.context.ChunkContext
+import org.springframework.batch.core.step.tasklet.Tasklet
+import org.springframework.batch.repeat.RepeatStatus
+import org.springframework.stereotype.Component
+
 @Component
 class TutorialTasklet(
-        val userRepository: UserRepository,
-        val postRepository: PostRepository
+    val userRepository: UserRepository,
+    //val postRepository: PostRepository
 ) : Tasklet {
 
     companion object {
