@@ -1,31 +1,31 @@
 package com.example.naruto.integrated.db.entity
 
-import com.example.naruto.integrated.common.BaseTime
-import com.example.naruto.integrated.common.PasswordConverter
-import com.example.naruto.integrated.user.Authority
-import com.example.naruto.integrated.user.Grade
-import jakarta.persistence.*
+import com.example.naruto.integrated.db.BaseTime
+import com.example.naruto.integrated.db.PasswordConverter
+import com.example.naruto.integrated.db.user.Authority
+import com.example.naruto.integrated.db.user.Grade
+import javax.persistence.*
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 
 @Entity
 @EntityListeners(value = [AuditingEntityListener::class])
 @Table(name = "user")
 data class User(
-        @Id
+    @Id
         @GeneratedValue
         val id: Long = 0L,
-        @Column(nullable = false, length = 20, unique = true)
+    @Column(nullable = false, length = 20, unique = true)
         var name: String? = "",
-        @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20)
         var nickname: String? = "",
-        @Column(nullable = false)
+    @Column(nullable = false)
         var email: String? = "",
-        @Column(nullable = false)
+    @Column(nullable = false)
         @Enumerated(EnumType.STRING)
         var grade: Grade = Grade.GREEN,
-        @Column
+    @Column
         var point: Long = 0,
-        @Column
+    @Column
         var authority: Authority = Authority.NORMAL,
 ): BaseTime(), java.io.Serializable {
 

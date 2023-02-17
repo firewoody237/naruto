@@ -1,4 +1,4 @@
-package com.example.naruto.integrated
+package com.example.naruto.integrated.db
 
 import org.apache.commons.dbcp2.BasicDataSource
 import org.apache.ibatis.session.SqlSessionFactory
@@ -52,19 +52,19 @@ class DbConfig {
     @Primary
     @ConfigurationProperties(DBCP_PROPERTIES)
     fun dataSource(
-            @Value("\${$DBCP_PROPERTIES.initialSize}") initialSize: Int,
-            @Value("\${$DBCP_PROPERTIES.minIdle}") minIdle: Int,
-            @Value("\${$DBCP_PROPERTIES.maxIdle}") maxIdle: Int,
-            @Value("\${$DBCP_PROPERTIES.maxTotal}") maxTotal: Int,
-            @Value("\${$DBCP_PROPERTIES.maxWaitMillis}") maxWaitMillis: Long,
-            @Value("\${$DBCP_PROPERTIES.isPoolPreparedStatements}") isPoolPreparedStatements: Boolean,
-            @Value("\${$DBCP_PROPERTIES.maxOpenPreparedStatements}") maxOpenPreparedStatements: Int,
-            @Value("\${$DBCP_PROPERTIES.testOnBorrow}") testOnBorrow: Boolean,
-            @Value("\${$DBCP_PROPERTIES.testOnReturn}") testOnReturn: Boolean,
-            @Value("\${$DBCP_PROPERTIES.testWhileIdle}") testWhileIdle: Boolean,
-            @Value("\${$DBCP_PROPERTIES.timeBetweenEvictionRunsMillis}") timeBetweenEvictionRunsMillis: Long,
-            @Value("\${$DBCP_PROPERTIES.numTestsPerEvictionRun}") numTestsPerEvictionRun: Int,
-            @Value("\${$DBCP_PROPERTIES.minEvictableIdleTimeMillis}") minEvictableIdleTimeMillis: Long,
+        @Value("\${$DBCP_PROPERTIES.initialSize}") initialSize: Int,
+        @Value("\${$DBCP_PROPERTIES.minIdle}") minIdle: Int,
+        @Value("\${$DBCP_PROPERTIES.maxIdle}") maxIdle: Int,
+        @Value("\${$DBCP_PROPERTIES.maxTotal}") maxTotal: Int,
+        @Value("\${$DBCP_PROPERTIES.maxWaitMillis}") maxWaitMillis: Long,
+        @Value("\${$DBCP_PROPERTIES.isPoolPreparedStatements}") isPoolPreparedStatements: Boolean,
+        @Value("\${$DBCP_PROPERTIES.maxOpenPreparedStatements}") maxOpenPreparedStatements: Int,
+        @Value("\${$DBCP_PROPERTIES.testOnBorrow}") testOnBorrow: Boolean,
+        @Value("\${$DBCP_PROPERTIES.testOnReturn}") testOnReturn: Boolean,
+        @Value("\${$DBCP_PROPERTIES.testWhileIdle}") testWhileIdle: Boolean,
+        @Value("\${$DBCP_PROPERTIES.timeBetweenEvictionRunsMillis}") timeBetweenEvictionRunsMillis: Long,
+        @Value("\${$DBCP_PROPERTIES.numTestsPerEvictionRun}") numTestsPerEvictionRun: Int,
+        @Value("\${$DBCP_PROPERTIES.minEvictableIdleTimeMillis}") minEvictableIdleTimeMillis: Long,
     ): BasicDataSource {
         return dataSourceProperties().initializeDataSourceBuilder().type(BasicDataSource::class.java).build().apply {
             this.initialSize = initialSize

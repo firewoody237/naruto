@@ -11,10 +11,10 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <AsyncLogger name="com.example.kopring_board" level="debug" additivity="false" includeLocation="true">
+        <AsyncLogger name="com.example.naruto" level="debug" additivity="false" includeLocation="true">
             <AppenderRef ref="rollingFile"/>
         </AsyncLogger>
-        <AsyncLogger name="com.example.kopring_board.integrated.db.repository" level="info" additivity="false" includeLocation="true">
+        <AsyncLogger name="com.example.naruto.integrated.db.repository" level="info" additivity="false" includeLocation="true">
             <AppenderRef ref="rollingFile"/>
         </AsyncLogger>
         <AsyncRoot level="warn" includeLocation="true">

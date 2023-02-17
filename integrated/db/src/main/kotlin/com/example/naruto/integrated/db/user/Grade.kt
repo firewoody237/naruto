@@ -1,4 +1,4 @@
-package com.example.naruto.integrated.user
+package com.example.naruto.integrated.db.user
 
 enum class Grade(val description: String, val paid: Long) {
     GREEN("그린 등급", 0),

@@ -1,6 +1,6 @@
-package com.example.naruto.integrated.common
+package com.example.naruto.integrated.db
 
-import jakarta.persistence.AttributeConverter
+import javax.persistence.AttributeConverter
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec

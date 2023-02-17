@@ -2,9 +2,6 @@ package com.example.naruto.integrated.webservice.api
 
 import com.example.naruto.integrated.common.ResultCode
 import com.example.naruto.integrated.common.ResultCodeException
-import jakarta.servlet.ServletException
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.springframework.boot.json.JsonParseException
@@ -21,11 +18,14 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.HandlerExceptionResolver
 import org.springframework.web.servlet.ModelAndView
 import java.lang.reflect.InvocationTargetException
+import javax.servlet.ServletException
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 class ApiExceptionResolver(
-        val apiMessageConverter: ApiMessageConverter
+    val apiMessageConverter: ApiMessageConverter
 ) : HandlerExceptionResolver {
 
     companion object {
@@ -33,10 +33,10 @@ class ApiExceptionResolver(
     }
 
     override fun resolveException(
-            request: HttpServletRequest,
-            response: HttpServletResponse,
-            handler: Any?,
-            exception: Exception
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        handler: Any?,
+        exception: Exception
     ): ModelAndView? {
         val handlerMethod = (handler ?: return null) as? HandlerMethod ?: return null
         if (!handlerMethod.hasMethodAnnotation(ApiRequestMapping::class.java)) {
@@ -53,47 +53,47 @@ class ApiExceptionResolver(
 
         val (level, result) = when (throwable) {
             is HttpMessageNotReadableException -> Pair(
-                    Level.WARN,
-                    when (throwable.cause) {
-                        is JsonParseException -> Response(ResultCode.ERROR_PARAMETER_JSON_PARSING)
-                        else -> Response(ResultCode.ERROR_HTTP_BODY)
-                    }
+                Level.WARN,
+                when (throwable.cause) {
+                    is JsonParseException -> Response(ResultCode.ERROR_PARAMETER_JSON_PARSING)
+                    else -> Response(ResultCode.ERROR_HTTP_BODY)
+                }
             )
 
             is HttpMediaTypeNotSupportedException -> Pair(
-                    Level.WARN,
-                    Response(
-                            ResultCode.ERROR_NOT_MEDIA_TYPE,
-                            msg = "다음중 하나로 요청 부탁드립니다 : ${throwable.supportedMediaTypes.filter { !(it.type == "*" && it.subtype == "*") }}"
-                    )
+                Level.WARN,
+                Response(
+                    ResultCode.ERROR_NOT_MEDIA_TYPE,
+                    msg = "다음중 하나로 요청 부탁드립니다 : ${throwable.supportedMediaTypes.filter { !(it.type == "*" && it.subtype == "*") }}"
+                )
             )
 
             is MissingServletRequestParameterException -> Pair(
-                    Level.WARN,
-                    Response(ResultCode.ERROR_PARAMETER_NOT_EXISTS, msg = throwable.parameterName)
+                Level.WARN,
+                Response(ResultCode.ERROR_PARAMETER_NOT_EXISTS, msg = throwable.parameterName)
             )
 
             is MethodArgumentTypeMismatchException -> Pair(
-                    Level.WARN,
-                    Response(
-                            ResultCode.ERROR_PARAMETER_TYPE,
-                            msg = "파라미터 : ${throwable.name}, 필요타입 : ${throwable.requiredType}"
-                    )
+                Level.WARN,
+                Response(
+                    ResultCode.ERROR_PARAMETER_TYPE,
+                    msg = "파라미터 : ${throwable.name}, 필요타입 : ${throwable.requiredType}"
+                )
             )
 
             is HttpRequestMethodNotSupportedException -> Pair(
-                    Level.WARN,
-                    Response(ResultCode.ERROR_NOT_SUPPORTED_HTTP_METHOD)
+                Level.WARN,
+                Response(ResultCode.ERROR_NOT_SUPPORTED_HTTP_METHOD)
             )
 
             is AccessDeniedException -> Pair(
-                    Level.WARN,
-                    Response(ResultCode.ERROR_ACCESS_DENIED)
+                Level.WARN,
+                Response(ResultCode.ERROR_ACCESS_DENIED)
             )
 
             is ResultCodeException -> Pair(
-                    throwable.loglevel,
-                    Response(throwable.resultCode, msg = throwable.originMessage, response = throwable.response)
+                throwable.loglevel,
+                Response(throwable.resultCode, msg = throwable.originMessage, response = throwable.response)
             )
 
             else -> {
