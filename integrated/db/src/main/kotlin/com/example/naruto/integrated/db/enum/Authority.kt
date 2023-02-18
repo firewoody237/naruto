@@ -1,4 +1,4 @@
-package com.example.naruto.integrated.db.user
+package com.example.naruto.integrated.db.enum
 
 enum class Authority(val description: String) {
     NORMAL("일반 사용자"),

@@ -1,9 +1,7 @@
 package com.example.naruto.integrated.db.entity
 
-import com.example.naruto.integrated.db.BaseTime
-import com.example.naruto.integrated.db.PasswordConverter
-import com.example.naruto.integrated.db.user.Authority
-import com.example.naruto.integrated.db.user.Grade
+import com.example.naruto.integrated.db.enum.Authority
+import com.example.naruto.integrated.db.enum.Grade
 import javax.persistence.*
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 

@@ -1,4 +1,4 @@
-package com.example.naruto.integrated.common
+package com.example.naruto.integrated.common.resultcode
 
 enum class ResultCode(val code: Int, val msg: String) {
 

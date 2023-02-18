@@ -1,7 +1,7 @@
 package com.example.naruto.integrated.webservice.api
 
-import com.example.naruto.integrated.common.ResultCode
-import com.example.naruto.integrated.common.ResultCodeException
+import com.example.naruto.integrated.common.resultcode.ResultCode
+import com.example.naruto.integrated.common.resultcode.ResultCodeException
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.springframework.boot.json.JsonParseException

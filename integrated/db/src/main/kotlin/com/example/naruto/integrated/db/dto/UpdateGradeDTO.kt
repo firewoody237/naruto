@@ -1,6 +1,6 @@
 package com.example.naruto.integrated.db.dto
 
-import com.example.naruto.integrated.db.user.Grade
+import com.example.naruto.integrated.db.enum.Grade
 
 data class UpdateGradeDTO(
     val id: Long?,

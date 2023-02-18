@@ -1,4 +1,4 @@
-package com.example.naruto.integrated.db
+package com.example.naruto.integrated.db.entity
 
 import javax.persistence.AttributeConverter
 import java.util.*

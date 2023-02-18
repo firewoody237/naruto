@@ -1,6 +1,6 @@
 package com.example.naruto.integrated.webservice.api
 
-import com.example.naruto.integrated.common.ResultCode
+import com.example.naruto.integrated.common.resultcode.ResultCode
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.apache.commons.lang.StringUtils
 import org.apache.logging.log4j.ThreadContext

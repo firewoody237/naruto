@@ -1,4 +1,4 @@
-package com.example.naruto.integrated.db
+package com.example.naruto.integrated.db.entity
 
 import javax.persistence.Column
 import javax.persistence.EntityListeners

@@ -1,7 +1,7 @@
 package com.example.naruto.integrated.db.service
 
-import com.example.naruto.integrated.common.ResultCode
-import com.example.naruto.integrated.common.ResultCodeException
+import com.example.naruto.integrated.common.resultcode.ResultCode
+import com.example.naruto.integrated.common.resultcode.ResultCodeException
 import com.example.naruto.integrated.db.dto.*
 import com.example.naruto.integrated.db.entity.User
 import com.example.naruto.integrated.db.mapper.UserMapper
