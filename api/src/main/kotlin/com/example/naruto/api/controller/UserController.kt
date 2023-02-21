@@ -1,7 +1,6 @@
 package com.example.naruto.api.controller
 
 import com.example.naruto.integrated.db.dto.*
-import com.example.naruto.integrated.db.entity.User
 import com.example.naruto.integrated.db.service.UserService
 import com.example.naruto.integrated.webservice.api.ApiRequestMapping
 import org.apache.logging.log4j.LogManager
@@ -30,6 +29,20 @@ class UserController(
 //            )
 //        }
 //    }
+
+    @ApiRequestMapping("/users", method = [RequestMethod.GET])
+    fun getUser(@RequestBody getUserDTO: GetUserDTO): UserVO {
+        log.debug("call getUser : getUserDTO = '$getUserDTO'")
+        val user = userService.getUserById(getUserDTO)
+        return UserVO(
+            id = user.id,
+            name = user.name!!,
+            nickname = user.nickname!!,
+            email = user.email!!,
+            grade = user.grade.toString(),
+            point = user.point
+        )
+    }
 
     @ApiRequestMapping("/users/{name}", method = [RequestMethod.GET])
     fun getUser(@PathVariable name: String): UserVO {
@@ -60,9 +73,17 @@ class UserController(
     }
 
     @ApiRequestMapping("/users", method = [RequestMethod.PUT])
-    fun updateUser(@RequestBody updateUserDTO: UpdateUserDTO): User {
+    fun updateUser(@RequestBody updateUserDTO: UpdateUserDTO): UserVO {
         log.debug("call updateUser : updateUserDTO = '$updateUserDTO'")
-        return userService.updateUser(updateUserDTO)
+        val user = userService.updateUser(updateUserDTO)
+        return UserVO(
+            id = user.id,
+            name = user.name!!,
+            nickname = user.nickname!!,
+            email = user.email!!,
+            grade = user.grade.toString(),
+            point = user.point
+        )
     }
 
     @ApiRequestMapping("/users", method = [RequestMethod.DELETE])
@@ -72,20 +93,44 @@ class UserController(
     }
 
     @ApiRequestMapping("/users/point", method = [RequestMethod.POST])
-    fun updateUserPoint(@RequestBody updatePointDTO: UpdatePointDTO): User {
+    fun updateUserPoint(@RequestBody updatePointDTO: UpdatePointDTO): UserVO {
         log.debug("call updateUserPoint, updatePointDTO = '${updatePointDTO}'")
-        return userService.updatePoint(updatePointDTO)
+        val user = userService.updatePoint(updatePointDTO)
+        return UserVO(
+            id = user.id,
+            name = user.name!!,
+            nickname = user.nickname!!,
+            email = user.email!!,
+            grade = user.grade.toString(),
+            point = user.point
+        )
     }
 
     @ApiRequestMapping("/users/grade", method = [RequestMethod.POST])
-    fun updateUserGrade(@RequestBody updateGradeDTO: UpdateGradeDTO): User {
+    fun updateUserGrade(@RequestBody updateGradeDTO: UpdateGradeDTO): UserVO {
         log.debug("call updateGradeDTO, updateGradeDTO = '${updateGradeDTO}'")
-        return userService.updateGrade(updateGradeDTO)
+        val user = userService.updateGrade(updateGradeDTO)
+        return UserVO(
+            id = user.id,
+            name = user.name!!,
+            nickname = user.nickname!!,
+            email = user.email!!,
+            grade = user.grade.toString(),
+            point = user.point
+        )
     }
 
     @ApiRequestMapping("/users/authority", method = [RequestMethod.POST])
-    fun updateUserAuthority(@RequestBody updateAuthorityDTO: UpdateAuthorityDTO): User {
+    fun updateUserAuthority(@RequestBody updateAuthorityDTO: UpdateAuthorityDTO): UserVO {
         log.debug("call updateUserAuthority, updateAuthorityDTO = '${updateAuthorityDTO}")
-        return userService.updateAuthority(updateAuthorityDTO)
+        val user = userService.updateAuthority(updateAuthorityDTO)
+        return UserVO(
+            id = user.id,
+            name = user.name!!,
+            nickname = user.nickname!!,
+            email = user.email!!,
+            grade = user.grade.toString(),
+            point = user.point
+        )
     }
 }
