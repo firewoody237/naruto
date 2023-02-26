@@ -4,5 +4,6 @@ import com.example.naruto.integrated.common.constant.PAGE
 import com.example.naruto.integrated.common.constant.SIZE
 
 data class GetUserDTO(
-    val id: Long = 0L
+    val id: Long?,
+    val name: String?,
 )

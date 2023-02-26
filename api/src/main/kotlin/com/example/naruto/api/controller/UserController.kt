@@ -1,8 +1,11 @@
 package com.example.naruto.api.controller
 
+import com.example.naruto.integrated.common.resultcode.ResultCode
+import com.example.naruto.integrated.common.resultcode.ResultCodeException
 import com.example.naruto.integrated.db.dto.*
 import com.example.naruto.integrated.db.service.UserService
 import com.example.naruto.integrated.webservice.api.ApiRequestMapping
+import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.springframework.web.bind.annotation.*
 
@@ -33,21 +36,24 @@ class UserController(
     @ApiRequestMapping("/users", method = [RequestMethod.GET])
     fun getUser(@RequestBody getUserDTO: GetUserDTO): UserVO {
         log.debug("call getUser : getUserDTO = '$getUserDTO'")
-        val user = userService.getUserById(getUserDTO)
-        return UserVO(
-            id = user.id,
-            name = user.name!!,
-            nickname = user.nickname!!,
-            email = user.email!!,
-            grade = user.grade.toString(),
-            point = user.point
-        )
-    }
+        val user =
+            when {
+                getUserDTO.id != null -> {
+                    userService.getUserById(getUserDTO.id!!)
+                }
 
-    @ApiRequestMapping("/users/{name}", method = [RequestMethod.GET])
-    fun getUser(@PathVariable name: String): UserVO {
-        log.debug("call getUser : name = '$name'")
-        val user = userService.getUserByName(name)
+                getUserDTO.name?.isNotEmpty() == true -> {
+                    userService.getUserByName(getUserDTO.name!!)
+                }
+
+                else -> {
+                    throw ResultCodeException(
+                        resultCode = ResultCode.ERROR_PARAMETER_NOT_EXISTS,
+                        loglevel = Level.WARN,
+                        message = "id && name all null or empty"
+                    )
+                }
+            }
         return UserVO(
             id = user.id,
             name = user.name!!,

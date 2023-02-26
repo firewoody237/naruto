@@ -4,6 +4,7 @@ import com.example.naruto.integrated.common.resultcode.ResultCode
 import com.example.naruto.integrated.common.resultcode.ResultCodeException
 import com.example.naruto.integrated.db.dto.*
 import com.example.naruto.integrated.db.entity.User
+import com.example.naruto.integrated.db.enum.Authority
 import com.example.naruto.integrated.db.mapper.UserMapper
 import com.example.naruto.integrated.db.repository.UserRepository
 import org.apache.logging.log4j.Level
@@ -50,10 +51,42 @@ class UserService(
 //        }
 //    }
 
-    fun getUserById(getUserDTO: GetUserDTO): User {
-        log.debug("call getUserById : getUserDTO = '$getUserDTO'")
+//    fun getUserById(getUserDTO: GetUserDTO): User {
+//        log.debug("call getUserById : getUserDTO = '$getUserDTO'")
+//
+//        if (getUserDTO.id == null) {
+//            throw ResultCodeException(
+//                resultCode = ResultCode.ERROR_PARAMETER_NOT_EXISTS,
+//                loglevel = Level.WARN,
+//                message = "파라미터에 [id]이 존재하지 않습니다."
+//            )
+//        }
+//
+//        val optionalUser = try {
+//            userRepository.findById(getUserDTO.id)
+//        } catch (e: Exception) {
+//            log.error("getUserById DB search failed. ${getUserDTO.id}", e)
+//            throw ResultCodeException(
+//                    resultCode = ResultCode.ERROR_DB,
+//                    loglevel = Level.ERROR,
+//                    message = "getUserById 호출 중 DB오류 발생 : ${e.message}"
+//            )
+//        }
+//
+//        return when (optionalUser.isPresent) {
+//            true -> optionalUser.get()
+//            else -> throw ResultCodeException(
+//                    resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
+//                    loglevel = Level.WARN,
+//                    message = "getUserById : id['${getUserDTO.id}'] 유저가 존재하지 않습니다."
+//            )
+//        }
+//    }
 
-        if (getUserDTO.id == 0L) {
+    fun getUserById(id: Long?): User {
+        log.debug("call getUserById : getUserDTO = '$id'")
+
+        if (id == null) {
             throw ResultCodeException(
                 resultCode = ResultCode.ERROR_PARAMETER_NOT_EXISTS,
                 loglevel = Level.WARN,
@@ -62,25 +95,26 @@ class UserService(
         }
 
         val optionalUser = try {
-            userRepository.findById(getUserDTO.id)
+            userRepository.findById(id)
         } catch (e: Exception) {
-            log.error("getUserById DB search failed. ${getUserDTO.id}", e)
+            log.error("getUserById DB search failed. ${id}", e)
             throw ResultCodeException(
-                    resultCode = ResultCode.ERROR_DB,
-                    loglevel = Level.ERROR,
-                    message = "getUserById 호출 중 DB오류 발생 : ${e.message}"
+                resultCode = ResultCode.ERROR_DB,
+                loglevel = Level.ERROR,
+                message = "getUserById 호출 중 DB오류 발생 : ${e.message}"
             )
         }
 
         return when (optionalUser.isPresent) {
             true -> optionalUser.get()
             else -> throw ResultCodeException(
-                    resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
-                    loglevel = Level.WARN,
-                    message = "getUserById : id['${getUserDTO.id}'] 유저가 존재하지 않습니다."
+                resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
+                loglevel = Level.WARN,
+                message = "getUserById : id['${id}'] 유저가 존재하지 않습니다."
             )
         }
     }
+
 
     fun getUserByName(name: String?): User {
         log.debug("call getUserByName : name = '$name'")
@@ -216,11 +250,7 @@ class UserService(
         }
 
         var isChange = false
-        val user = getUserById(
-            GetUserDTO(
-                id = updateUserDTO.id
-            )
-        )
+        val user = getUserById(updateUserDTO.id)
 
         if (updateUserDTO.name?.isNotEmpty() == true) {
             user.name = updateUserDTO.name
@@ -294,11 +324,7 @@ class UserService(
             )
         }
 
-        val user = getUserById(
-            GetUserDTO(
-                id = updatePointDTO.id
-            )
-        )
+        val user = getUserById(updatePointDTO.id)
 
         try {
             if (user.point + updatePointDTO.point!! < 0) {
@@ -338,11 +364,7 @@ class UserService(
             )
         }
 
-        val user = getUserById(
-            GetUserDTO(
-                id = updateGradeDTO.id
-            )
-        )
+        val user = getUserById(updateGradeDTO.id)
 
         try {
             user.grade = updateGradeDTO.grade
@@ -375,11 +397,7 @@ class UserService(
             )
         }
 
-        val user = getUserById(
-            GetUserDTO(
-                id = updateAuthorityDTO.id
-            )
-        )
+        val user = getUserById(updateAuthorityDTO.id)
 
         try {
             user.authority = updateAuthorityDTO.authority
