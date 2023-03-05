@@ -42,6 +42,7 @@ private const val SQL_SESSION_FACTORY_BEAN_NAME = "${DB_NAME}SqlSessionFactoryBe
 class DbConfig {
     @Bean
     @ConfigurationProperties(DATA_SOURCE_PROPERTIES)
+    //여기서 database 관련 설정을 정하기 때문에 db.naruto.url = 이런식으로 된 값이 들어가는거 같습니다.
     fun dataSourceProperties(): DataSourceProperties {
         return DataSourceProperties()
     }
