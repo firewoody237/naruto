@@ -98,7 +98,7 @@ class UserController(
         return userService.deleteUser(deleteUserDTO)
     }
 
-    @ApiRequestMapping("/users/point", method = [RequestMethod.POST])
+    @ApiRequestMapping("/users/point", method = [RequestMethod.PUT])
     fun updateUserPoint(@RequestBody updatePointDTO: UpdatePointDTO): UserVO {
         log.debug("call updateUserPoint, updatePointDTO = '${updatePointDTO}'")
         val user = userService.updatePoint(updatePointDTO)
@@ -112,7 +112,7 @@ class UserController(
         )
     }
 
-    @ApiRequestMapping("/users/grade", method = [RequestMethod.POST])
+    @ApiRequestMapping("/users/grade", method = [RequestMethod.PUT])
     fun updateUserGrade(@RequestBody updateGradeDTO: UpdateGradeDTO): UserVO {
         log.debug("call updateGradeDTO, updateGradeDTO = '${updateGradeDTO}'")
         val user = userService.updateGrade(updateGradeDTO)
@@ -126,7 +126,7 @@ class UserController(
         )
     }
 
-    @ApiRequestMapping("/users/authority", method = [RequestMethod.POST])
+    @ApiRequestMapping("/users/authority", method = [RequestMethod.PUT])
     fun updateUserAuthority(@RequestBody updateAuthorityDTO: UpdateAuthorityDTO): UserVO {
         log.debug("call updateUserAuthority, updateAuthorityDTO = '${updateAuthorityDTO}")
         val user = userService.updateAuthority(updateAuthorityDTO)
