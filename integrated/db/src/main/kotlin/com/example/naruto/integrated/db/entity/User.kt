@@ -10,21 +10,21 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 @Table(name = "user")
 data class User(
     @Id
-        @GeneratedValue
-        val id: Long = 0L,
+    @GeneratedValue
+    val id: Long = 0L,
     @Column(nullable = false, length = 20, unique = true)
-        var name: String? = "",
+    var name: String? = "",
     @Column(nullable = false, length = 20)
-        var nickname: String? = "",
+    var nickname: String? = "",
     @Column(nullable = false)
-        var email: String? = "",
+    var email: String? = "",
     @Column(nullable = false)
-        @Enumerated(EnumType.STRING)
-        var grade: Grade = Grade.GREEN,
+    @Enumerated(EnumType.STRING)
+    var grade: Grade = Grade.GREEN,
     @Column
-        var point: Long = 0,
+    var point: Long = 0,
     @Column
-        var authority: Authority = Authority.NORMAL,
+    var authority: Authority = Authority.NORMAL,
 ): BaseTime(), java.io.Serializable {
 
     @Column

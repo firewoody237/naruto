@@ -84,7 +84,7 @@ class UserService(
 //    }
 
     fun getUserById(id: Long?): User {
-        log.debug("call getUserById : getUserDTO = '$id'")
+        log.debug("call getUserById : id = '$id'")
 
         if (id == null) {
             throw ResultCodeException(
@@ -94,8 +94,15 @@ class UserService(
             )
         }
 
-        val optionalUser = try {
-            userRepository.findById(id)
+        try {
+            return userRepository.findById(id)
+                .orElseThrow {
+                    ResultCodeException(
+                        resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
+                        loglevel = Level.WARN,
+                        message = "getUserById : id['${id}'] 유저가 존재하지 않습니다."
+                    )
+                }
         } catch (e: Exception) {
             log.error("getUserById DB search failed. ${id}", e)
             throw ResultCodeException(
@@ -104,15 +111,26 @@ class UserService(
                 message = "getUserById 호출 중 DB오류 발생 : ${e.message}"
             )
         }
-
-        return when (optionalUser.isPresent) {
-            true -> optionalUser.get()
-            else -> throw ResultCodeException(
-                resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
-                loglevel = Level.WARN,
-                message = "getUserById : id['${id}'] 유저가 존재하지 않습니다."
-            )
-        }
+//
+//        val optionalUser = try {
+//            userRepository.findById(id)
+//        } catch (e: Exception) {
+//            log.error("getUserById DB search failed. ${id}", e)
+//            throw ResultCodeException(
+//                resultCode = ResultCode.ERROR_DB,
+//                loglevel = Level.ERROR,
+//                message = "getUserById 호출 중 DB오류 발생 : ${e.message}"
+//            )
+//        }
+//
+//        return when (optionalUser.isPresent) {
+//            true -> optionalUser.get()
+//            else -> throw ResultCodeException(
+//                resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
+//                loglevel = Level.WARN,
+//                message = "getUserById : id['${id}'] 유저가 존재하지 않습니다."
+//            )
+//        }
     }
 
 
@@ -127,8 +145,15 @@ class UserService(
             )
         }
 
-        val optionalUser = try {
-            userRepository.findByName(name)
+        try {
+            return userRepository.findByName(name)
+                .orElseThrow {
+                    throw ResultCodeException(
+                        resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
+                        loglevel = Level.WARN,
+                        message = "getUserByName : name['$name'] 유저가 존재하지 않습니다."
+                    )
+                }
         } catch (e: Exception) {
             log.error("getUserByName DB search failed. $name", e)
             throw ResultCodeException(
@@ -137,15 +162,26 @@ class UserService(
                 message = "getUserByName 호출 중 DB오류 발생 : ${e.message}"
             )
         }
-
-        return when (optionalUser.isPresent) {
-            true -> optionalUser.get()
-            else -> throw ResultCodeException(
-                resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
-                loglevel = Level.WARN,
-                message = "getUserByName : name['$name'] 유저가 존재하지 않습니다."
-            )
-        }
+//
+//        val optionalUser = try {
+//            userRepository.findByName(name)
+//        } catch (e: Exception) {
+//            log.error("getUserByName DB search failed. $name", e)
+//            throw ResultCodeException(
+//                resultCode = ResultCode.ERROR_DB,
+//                loglevel = Level.ERROR,
+//                message = "getUserByName 호출 중 DB오류 발생 : ${e.message}"
+//            )
+//        }
+//
+//        return when (optionalUser.isPresent) {
+//            true -> optionalUser.get()
+//            else -> throw ResultCodeException(
+//                resultCode = ResultCode.ERROR_USER_NOT_EXISTS,
+//                loglevel = Level.WARN,
+//                message = "getUserByName : name['$name'] 유저가 존재하지 않습니다."
+//            )
+//        }
     }
 
     fun isExistByName(name: String): Boolean {
